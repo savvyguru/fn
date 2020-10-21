@@ -1,26 +1,44 @@
 import React from 'react';
 import logo from './logo.svg';
+import FixedMenuLayout from "./FixedMenuLayout";
+import Myheader from "./MainGrid";
+import Mygrid from "./BottomNav";
 import './App.css';
+import axios from 'axios';
+import BookView from './component/BookView';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  state = {
+    books: []
+  }
+  componentDidMount() {
+    axios.get(`http://localhost:3000/books`)
+      .then(res => {
+        const books = res.data;
+        console.log(books)
+        this.setState({ books });
+      })
+  }
+  renderBooks() {
+    return (
+      this.state.books.map(book=> {
+        return <div class="four wide column"><BookView key={book.asin} book={book}></BookView></div>
+      })
+    )
+  }
+  render(){
+    return (
+      <div>
+      <FixedMenuLayout />
+      {/* <Myheader books={books}/>  */}
+      <div class="ui grid">
+        {this.renderBooks()}
+      </div>
+      <Mygrid />
+   </div>
+    );
+  }
+  
 }
 
 export default App;

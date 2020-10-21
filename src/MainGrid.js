@@ -8,7 +8,7 @@ import BookView from './component/BookView';
 
 const MainGrid = () => (
 <div>
-<Container text style={{ marginTop: '4em' }}>
+ <Container text style={{ marginTop: '4em' }}>
   <Grid>
     <Grid.Row columns={4}>
       <Grid.Column>

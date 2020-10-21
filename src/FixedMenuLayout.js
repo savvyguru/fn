@@ -17,7 +17,7 @@ const FixedMenuLayout = () => (
         </Menu.Item>
         <Menu.Item as='a'>Home</Menu.Item>
 
-        <Dropdown item simple text='Dropdown'>
+        <Dropdown item simple text='Actions'>
           <Dropdown.Menu>
             <Dropdown.Item>List Item</Dropdown.Item>
             <Dropdown.Item>List Item</Dropdown.Item>
