@@ -26,6 +26,10 @@ const AddBook = () => {
         setDescription(e.target.value);
     };
     const submitHandler = e => {
+        if (asin=='' || price=='' || imURL=='' || categories=='' || description ==''){
+            alert("Please fill in all required fields");
+        }
+        else{
         const submitURL = 'https://cors-anywhere.herokuapp.com/http://ec2-54-90-244-6.compute-1.amazonaws.com/bookPost'
         e.preventDefault();
         console.log({asin,price,imURL,categories,description});
@@ -39,6 +43,7 @@ const AddBook = () => {
                 alert('Add Book Failed - Book Already Exist')
             }
         })
+    }
     };
 
     return(
@@ -64,7 +69,7 @@ const AddBook = () => {
                     </Form.Field>
                     
                     <Form.Field
-                    required
+                    // required
                     control={TextArea}
                     label='Description'
                     placeholder='Tell us more about the book...'

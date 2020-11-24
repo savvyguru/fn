@@ -37,27 +37,36 @@ class ResultPage extends React.Component{
 
   componentDidMount(){
     console.log(this.state.theSearch);
-    console.log(this.state.theOption);  
+    console.log(this.state.theOption);
+    if (this.state.theOption=='title'){
+        console.log("hit")
+        axios.get("https://cors-anywhere.herokuapp.com/http://ec2-54-90-244-6.compute-1.amazonaws.com/bookSearch?title="+this.state.theSearch)
+        .then(res => {
+            const books = [res.data];
+            if (books==[]){
+              alert("No matching books found")
+            }
+            //this.setState({ books });
+            else{
+              console.log(books);
+              this.setState({ books });
+            }   
+            })    
+    }  
     if (this.state.theOption=='author'){
         axios.get("https://cors-anywhere.herokuapp.com/http://ec2-54-90-244-6.compute-1.amazonaws.com/bookSearch?author="+this.state.theSearch)
         .then(res => {
             console.log(res)
             const books = res.data;
-            console.log(books)
+            if (books==""){
+              alert("No matching books found")
+            }
             this.setState({ books });
+            console.log(books)
             })
       }
-    if (this.state.theOption=='title'){
-        console.log("hit")
-        axios.get("https://cors-anywhere.herokuapp.com/http://ec2-54-90-244-6.compute-1.amazonaws.com/bookSearch?title="+this.state.theSearch)
-        .then(res => {
-            const books = res.data;
-            console.log(books)
-            this.setState({ books });
-            })    
-    }   
 }
-    renderBooks() {
+  renderBooks() {
     return (
         this.state.books.map(book=> {
         return <div class="four wide column" ><BookView key={book.asin} book={book}></BookView></div>

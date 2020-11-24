@@ -8,6 +8,7 @@ import {
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
+
 class FixedMenuLayout extends React.Component {
    options = [
     { key: 'author', text: 'author', value: 'author' },
@@ -47,7 +48,7 @@ class FixedMenuLayout extends React.Component {
       <Container>
         <Menu.Item as='a' header as={Link} to="/home">
           {/* <Image size='mini' src='./logo.png' style={{ marginRight: '1.5em' }} /> */}
-          Home
+          Explore
         </Menu.Item>
         
 

@@ -22,6 +22,10 @@ class ReviewPage extends React.Component{
         console.log(this.state.apiUrl+asin);
         axios.get(this.state.apiUrl+asin)
             .then(res => {
+                console.log(res.status)
+                if (res.status == 404){
+                    alert("No book reviews available")
+                }
                 const reviews = res.data;
                 this.setState({ reviews });
             })

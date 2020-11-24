@@ -36,6 +36,10 @@ const AddReview = () => {
     };
     const submitHandler = e => {
         e.preventDefault();
+        if (asin=='' || reviewerID=='' || reviewerName=='' || overall=='' || reviewText=='' || reviewTime=='' || summary==''){
+            alert("Please fill in all required fields");
+        }
+        else{
         //console.log({asin,overall,reviewText,reviewTime,summary});
         const params = {asin,reviewerID,reviewerName,overall,reviewText,reviewTime,summary}
         const data = Object.keys(params)
@@ -47,13 +51,14 @@ const AddReview = () => {
         axios.post(submitURL,data)
         .then(res => {
             console.log(res);
-            if (res.status===200){
+            if (res.status===201){
                 alert('Review Submitted Successfully')
             }
             if (res.status===400){
                 alert('Add Review Failed - Review Already Exist')
             }
         })
+    }
     };
     
     return(
@@ -80,7 +85,7 @@ const AddReview = () => {
                 <label>Rating</label>
                 <Rating icon='star' defaultRating={3} maxRating={5} onRate={overallHandler} />
                 </Form.Field>
-                <Form.TextArea required label='Description' placeholder='Tell us more about the book...' onChange={reviewTextHandler} />
+                <Form.TextArea label='Description' placeholder='Tell us more about the book...' onChange={reviewTextHandler} />
                 <Form.Field required>
                 <label>Time</label>
                 <input placeholder='What time is it?' onChange={reviewTimeHandler}/>
