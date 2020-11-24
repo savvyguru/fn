@@ -1,44 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import FixedMenuLayout from "./FixedMenuLayout";
-import Myheader from "./MainGrid";
-import Mygrid from "./BottomNav";
-import './App.css';
-import axios from 'axios';
-import BookView from './component/BookView';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import AddReview from './AddReview';
+import AddBook from './AddBook';
+import HomePage from "./HomePage";
+import ReviewPage from "./ReviewPage";
+import ResultPage from './ResultPage';
 
 class App extends React.Component{
-  state = {
-    books: []
-  }
-  componentDidMount() {
-    axios.get(`http://localhost:3000/books`)
-      .then(res => {
-        const books = res.data;
-        console.log(books)
-        this.setState({ books });
-      })
-  }
-  renderBooks() {
-    return (
-      this.state.books.map(book=> {
-        return <div class="four wide column"><BookView key={book.asin} book={book}></BookView></div>
-      })
-    )
-  }
   render(){
     return (
-      <div>
-      <FixedMenuLayout />
-      {/* <Myheader books={books}/>  */}
-      <div class="ui grid">
-        {this.renderBooks()}
-      </div>
-      <Mygrid />
-   </div>
+      <BrowserRouter>
+        <Switch>
+          {/* <Route exact path = "/" component={LoginForm}/> */}
+          <Route exact path="/result" component={ResultPage} />
+          <Route exact path="/home" component={HomePage} />
+          <Route exact path="/addreview" component={AddReview} />
+          <Route exact path="/addbook" component={AddBook} />
+          <Route path="/:asin" component={ReviewPage} />
+          
+        </Switch>
+      </BrowserRouter>
     );
-  }
-  
+  }  
 }
 
 export default App;
