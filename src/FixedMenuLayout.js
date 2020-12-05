@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import {
   Container,
   Dropdown,
-  Input, 
+  Search, 
   Menu,
   Icon
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
+import axios from 'axios';
+import _ from "lodash";
+import BookView from './component/BookView';
 
+const { MONGO_IP } = process.env;
 
 class FixedMenuLayout extends React.Component {
    options = [
@@ -17,13 +21,27 @@ class FixedMenuLayout extends React.Component {
   state = {
     userSearch: '',
     userOption: 'author',
+    books: []
   };
   // let [userSearch, setuserSearch] = useState('');
   // let [userOption, setuserOption] = this.state.author;
   
   handleChange = e =>{
+    console.log("hit");
     // setuserSearch(e.target.value);
     this.setState({userSearch:e.target.value});
+    // place dynamic search here!
+    axios.get('http://'+ '54.88.221.133'+'/dynamicSearch?author='+this.state.userSearch)
+    .then(res => {
+      this.setState({books:res.data});
+      console.log(this.state.books);
+      console.log('out')
+      
+    })
+    .catch(err=>{
+      console.log(err.code);
+    }
+      )
   }
   
    handleOptions = (e,data) =>{
@@ -40,6 +58,13 @@ class FixedMenuLayout extends React.Component {
     });
     e.preventDefault();
   }
+  renderBooks() {
+    return (
+        this.state.books.map(book=> {
+        return <div class="four wide column" ><BookView key={book.asin} book={book}></BookView></div>
+        })
+    )
+    }
 
   render(){
   return(
@@ -70,11 +95,13 @@ class FixedMenuLayout extends React.Component {
           </Dropdown.Menu>
         </Dropdown>
         <Dropdown item simple text='Type' defaultValue='author' options={this.options} onChange={this.handleOptions}/>
-        <Input
+        <Search
           labelPosition='left'
           placeholder='Search...'
+          
+          results = {this.state.books}
           icon={<Icon name='search' inverted circular link link onClick={this.handleSubmit}/>}
-          onChange={this.handleChange}
+          onSearchChange={_.debounce(this.handleChange, 300)}
         />
       </Container>
     </Menu>

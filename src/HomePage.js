@@ -10,12 +10,13 @@ import { Container, Pagination } from 'semantic-ui-react';
 class HomePage extends React.Component{
   state = {
     books: [],
-    activePage: 5,
-    apiUrl : 'https://cors-anywhere.herokuapp.com/http://ec2-54-90-244-6.compute-1.amazonaws.com/allbooks?page='
+    activePage: 1,
+    apiUrl : 'http://'+ '54.88.221.133'+'/allbooks?page='
   };
 
   handlePaginationChange = (e, { activePage }) => {
     //console.log("page changed",{activePage});
+    console.log(this.state.apiUrl)
     this.setState({ activePage });
     axios.get(this.state.apiUrl+this.state.activePage*8)
     .then(res => {

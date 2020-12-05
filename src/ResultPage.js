@@ -20,27 +20,12 @@ class ResultPage extends React.Component{
       }
   }
 
-//   handlePaginationChange = (e, { activePage }) => {
-//     //console.log("page changed",{activePage});
-//     this.setState({ activePage });
-//     axios.get(this.state.apiUrl+this.state.activePage*8)
-//     .then(res => {
-//       const books = res.data;
-//       console.log(books)
-//       this.setState({ books });
-//       return (
-//         this.state.books.map(book=> {
-//           return <BookView key={book.asin} book={book}></BookView>
-//         })
-//       )
-//       })
-
   componentDidMount(){
     console.log(this.state.theSearch);
     console.log(this.state.theOption);
     if (this.state.theOption=='title'){
         console.log("hit")
-        axios.get("https://cors-anywhere.herokuapp.com/http://ec2-54-90-244-6.compute-1.amazonaws.com/bookSearch?title="+this.state.theSearch)
+        axios.get("http://"+ "54.88.221.133"+"/bookSearch?title="+this.state.theSearch)
         .then(res => {
             const books = [res.data];
             if (books==[]){
@@ -54,7 +39,7 @@ class ResultPage extends React.Component{
             })    
     }  
     if (this.state.theOption=='author'){
-        axios.get("https://cors-anywhere.herokuapp.com/http://ec2-54-90-244-6.compute-1.amazonaws.com/bookSearch?author="+this.state.theSearch)
+        axios.get("http://"+ "54.88.221.133" +"/bookSearch?author="+this.state.theSearch)
         .then(res => {
             console.log(res)
             const books = res.data;

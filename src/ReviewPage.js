@@ -7,7 +7,7 @@ import FixedMenuLayout from "./FixedMenuLayout";
 class ReviewPage extends React.Component{
     state = {
         reviews : [],
-        apiUrl : 'https://cors-anywhere.herokuapp.com/http://100.25.16.11/reviews/?asin='
+        apiUrl : 'http://'+ process.env.MYSQL_IP +'/reviews/?asin='
       };
 
     renderReviews() {
