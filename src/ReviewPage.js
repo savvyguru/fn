@@ -4,10 +4,12 @@ import ReviewView from './component/ReviewView';
 import { Comment,Container,Header } from 'semantic-ui-react';
 import FixedMenuLayout from "./FixedMenuLayout";
 
+const { MYSQL_IP } = process.env;
+
 class ReviewPage extends React.Component{
     state = {
         reviews : [],
-        apiUrl : 'http://'+ process.env.MYSQL_IP +'/reviews/?asin='
+        apiUrl : 'http://'+ { MYSQL_IP } +'/reviews/?asin='
       };
 
     renderReviews() {

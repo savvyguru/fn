@@ -6,12 +6,13 @@ import axios from 'axios';
 import BookView from './component/BookView';
 import { Container, Pagination } from 'semantic-ui-react';
 
+const { MONGO_IP } = process.env;
 
 class HomePage extends React.Component{
   state = {
     books: [],
     activePage: 1,
-    apiUrl : 'http://'+ '54.88.221.133'+'/allbooks?page='
+    apiUrl : 'http://'+ { MONGO_IP }+'/allbooks?page='
   };
 
   handlePaginationChange = (e, { activePage }) => {

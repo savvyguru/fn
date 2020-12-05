@@ -3,6 +3,8 @@ import { Button, Container, Form ,Rating} from 'semantic-ui-react';
 import FixedMenuLayout from "./FixedMenuLayout";
 import axios from 'axios';
 
+const { MYSQL_IP } = process.env;
+
 const AddReview = () => {
     const [asin, setAsin] = useState('');
     const [reviewerID, setReviewerid] = useState('');
@@ -46,8 +48,7 @@ const AddReview = () => {
         .map(key => `${key}=${params[key]}`)
         .join('&');
         console.log(data)
-        console.log(`https://cors-anywhere.herokuapp.com/http://100.25.16.11/review/?${data}`)
-        const submitURL = `https://cors-anywhere.herokuapp.com/http://100.25.16.11/review/?${data}`
+        const submitURL = `http://`+{ MYSQL_IP }+`/review/?${data}`
         axios.post(submitURL,data)
         .then(res => {
             console.log(res);

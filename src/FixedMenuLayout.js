@@ -31,7 +31,7 @@ class FixedMenuLayout extends React.Component {
     // setuserSearch(e.target.value);
     this.setState({userSearch:e.target.value});
     // place dynamic search here!
-    axios.get('http://'+ '54.88.221.133'+'/dynamicSearch?author='+this.state.userSearch)
+    axios.get('http://'+ { MONGO_IP }+'/dynamicSearch?author='+this.state.userSearch)
     .then(res => {
       this.setState({books:res.data});
       console.log(this.state.books);

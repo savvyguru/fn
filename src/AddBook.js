@@ -3,6 +3,8 @@ import { Button, Container, Form,TextArea } from 'semantic-ui-react';
 import FixedMenuLayout from "./FixedMenuLayout";
 import axios from 'axios';
 
+const { MONGO_IP } = process.env;
+
 const AddBook = () => {
     const [asin, setAsin] = useState('');
     const [price, setPrice] = useState('');
@@ -30,7 +32,7 @@ const AddBook = () => {
             alert("Please fill in all required fields");
         }
         else{
-        const submitURL = 'https://cors-anywhere.herokuapp.com/http://ec2-54-90-244-6.compute-1.amazonaws.com/bookPost'
+        const submitURL = 'http://'+ { MONGO_IP } +'/bookPost'
         e.preventDefault();
         console.log({asin,price,imURL,categories,description});
         axios.post(submitURL,{asin,price,imURL,categories,description})

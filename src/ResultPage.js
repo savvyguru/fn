@@ -7,6 +7,7 @@ import BookView from './component/BookView';
 import { Container, Pagination } from 'semantic-ui-react';
 import { useHistory } from "react-router-dom";
 
+const { MONGO_IP } = process.env;
 
 class ResultPage extends React.Component{
   constructor(props){
@@ -25,7 +26,7 @@ class ResultPage extends React.Component{
     console.log(this.state.theOption);
     if (this.state.theOption=='title'){
         console.log("hit")
-        axios.get("http://"+ "54.88.221.133"+"/bookSearch?title="+this.state.theSearch)
+        axios.get("http://"+ { MONGO_IP }+"/bookSearch?title="+this.state.theSearch)
         .then(res => {
             const books = [res.data];
             if (books==[]){
@@ -39,7 +40,7 @@ class ResultPage extends React.Component{
             })    
     }  
     if (this.state.theOption=='author'){
-        axios.get("http://"+ "54.88.221.133" +"/bookSearch?author="+this.state.theSearch)
+        axios.get("http://"+ { MONGO_IP } +"/bookSearch?author="+this.state.theSearch)
         .then(res => {
             console.log(res)
             const books = res.data;
